@@ -1,0 +1,28 @@
+{
+    "kind": "collectionType",
+    "collectionName": "users-permissions_user",
+    "info": {
+      "name": "User",
+      "description": "Manage application users"
+    },
+    "options": {
+      "draftAndPublish": false
+    },
+    "attributes": {
+      "username": {
+        "type": "string",
+        "required": true,
+        "unique": true
+      },
+      "email": {
+        "type": "email",
+        "required": true,
+        "unique": true
+      },
+      "password": {
+        "type": "password",
+        "required": true
+      }
+    }
+}
+  
