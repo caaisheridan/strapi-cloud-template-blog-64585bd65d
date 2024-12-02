@@ -28,6 +28,12 @@
       "relation": "manyToOne",
       "target": "api::activity-category.activity-category",
       "inversedBy": "activity_items"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "activity_items"
     }
   }
 }
