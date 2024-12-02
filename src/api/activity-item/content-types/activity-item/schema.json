@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "activity_items",
+  "info": {
+    "singularName": "activity-item",
+    "pluralName": "activity-items",
+    "displayName": "ActivityItem",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "maxLength": 100,
+      "required": true,
+      "unique": true
+    },
+    "sort_order": {
+      "type": "integer",
+      "min": 0,
+      "default": 0
+    },
+    "activity_category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::activity-category.activity-category",
+      "inversedBy": "activity_items"
+    }
+  }
+}

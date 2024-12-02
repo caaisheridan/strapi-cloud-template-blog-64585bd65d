@@ -398,6 +398,100 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiActivityCategoryActivityCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'activity_categories';
+  info: {
+    description: '';
+    displayName: 'ActivityCategory';
+    pluralName: 'activity-categories';
+    singularName: 'activity-category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    activity_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::activity-item.activity-item'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::activity-category.activity-category'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    sort_order: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiActivityItemActivityItem
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'activity_items';
+  info: {
+    description: '';
+    displayName: 'ActivityItem';
+    pluralName: 'activity-items';
+    singularName: 'activity-item';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    activity_category: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::activity-category.activity-category'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::activity-item.activity-item'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    sort_order: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
@@ -940,6 +1034,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
+      'api::activity-category.activity-category': ApiActivityCategoryActivityCategory;
+      'api::activity-item.activity-item': ApiActivityItemActivityItem;
       'api::global.global': ApiGlobalGlobal;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
