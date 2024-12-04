@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "exercise_topics",
+  "info": {
+    "singularName": "exercise-topic",
+    "pluralName": "exercise-topics",
+    "displayName": "ExerciseTopic"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    }
+  }
+}

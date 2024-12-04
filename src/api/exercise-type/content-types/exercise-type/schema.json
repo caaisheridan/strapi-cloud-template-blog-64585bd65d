@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "exercise_types",
+  "info": {
+    "singularName": "exercise-type",
+    "pluralName": "exercise-types",
+    "displayName": "ExerciseType"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

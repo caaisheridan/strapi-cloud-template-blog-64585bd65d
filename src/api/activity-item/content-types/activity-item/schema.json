@@ -20,8 +20,10 @@
     },
     "sort_order": {
       "type": "integer",
-      "min": 0,
-      "default": 0
+      "min": 1,
+      "default": 1,
+      "unique": true,
+      "required": true
     },
     "activity_category": {
       "type": "relation",
@@ -34,6 +36,11 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "mappedBy": "activity_items"
+    },
+    "personal_activity_goals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::personal-activity-goal.personal-activity-goal"
     }
   }
 }

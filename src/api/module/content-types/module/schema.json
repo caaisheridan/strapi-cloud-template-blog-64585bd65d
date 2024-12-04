@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "modules",
+  "info": {
+    "singularName": "module",
+    "pluralName": "modules",
+    "displayName": "Module",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 50
+    },
+    "description": {
+      "type": "text"
+    },
+    "module_topics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::module-topic.module-topic"
+    },
+    "personal_activity_goals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::personal-activity-goal.personal-activity-goal"
+    },
+    "personal_activity_goal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::personal-activity-goal.personal-activity-goal",
+      "mappedBy": "module"
+    }
+  }
+}

@@ -20,8 +20,10 @@
     },
     "sort_order": {
       "type": "integer",
-      "default": 0,
-      "min": 0
+      "default": 1,
+      "min": 1,
+      "unique": true,
+      "required": true
     },
     "activity_items": {
       "type": "relation",

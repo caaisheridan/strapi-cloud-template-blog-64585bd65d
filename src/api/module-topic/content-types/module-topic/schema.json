@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "module_topics",
+  "info": {
+    "singularName": "module-topic",
+    "pluralName": "module-topics",
+    "displayName": "ModuleTopic",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "link": {
+      "type": "string"
+    },
+    "media": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

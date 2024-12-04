@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "personal_activity_goals",
+  "info": {
+    "singularName": "personal-activity-goal",
+    "pluralName": "personal-activity-goals",
+    "displayName": "PersonalActivityGoal",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ability_to_perform_activity": {
+      "type": "integer",
+      "max": 10,
+      "min": 0,
+      "required": true
+    },
+    "frequency": {
+      "type": "enumeration",
+      "enum": [
+        "Daily",
+        "Weekly",
+        "Monthly"
+      ],
+      "required": true
+    },
+    "target_timeframe": {
+      "type": "enumeration",
+      "enum": [
+        "Months-2",
+        "Months-4",
+        "Months-6"
+      ],
+      "required": true
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "activity_item": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::activity-item.activity-item"
+    },
+    "module": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::module.module",
+      "inversedBy": "personal_activity_goal"
+    }
+  }
+}
