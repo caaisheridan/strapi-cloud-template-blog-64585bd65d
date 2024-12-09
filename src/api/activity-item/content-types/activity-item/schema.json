@@ -8,21 +8,12 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
     "name": {
       "type": "string",
-      "maxLength": 100,
-      "required": true,
-      "unique": true
-    },
-    "sort_order": {
-      "type": "integer",
-      "min": 1,
-      "default": 1,
-      "unique": true,
       "required": true
     },
     "activity_category": {
@@ -31,16 +22,11 @@
       "target": "api::activity-category.activity-category",
       "inversedBy": "activity_items"
     },
-    "users": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "activity_items"
-    },
     "personal_activity_goals": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::personal-activity-goal.personal-activity-goal"
+      "target": "api::personal-activity-goal.personal-activity-goal",
+      "mappedBy": "activity_item"
     }
   }
 }

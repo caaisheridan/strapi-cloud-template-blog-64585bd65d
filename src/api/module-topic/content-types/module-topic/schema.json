@@ -24,14 +24,25 @@
       "type": "string"
     },
     "media": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "module": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::module.module",
+      "inversedBy": "module_topics"
+    },
+    "sort_order": {
+      "type": "integer",
+      "required": false
     }
   }
 }

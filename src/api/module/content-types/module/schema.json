@@ -21,20 +21,16 @@
     "description": {
       "type": "text"
     },
+    "personal_activity_goals": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::personal-activity-goal.personal-activity-goal",
+      "inversedBy": "modules"
+    },
     "module_topics": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::module-topic.module-topic"
-    },
-    "personal_activity_goals": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::personal-activity-goal.personal-activity-goal"
-    },
-    "personal_activity_goal": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::personal-activity-goal.personal-activity-goal",
+      "target": "api::module-topic.module-topic",
       "mappedBy": "module"
     }
   }

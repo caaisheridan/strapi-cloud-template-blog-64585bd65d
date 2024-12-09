@@ -8,21 +8,39 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
     "ability_to_perform_activity": {
       "type": "integer",
+      "required": true,
       "max": 10,
-      "min": 0,
+      "min": 0
+    },
+    "action_to_meet_goal": {
+      "type": "enumeration",
+      "enum": [
+        "Perform without assistance",
+        "Do more safely",
+        "Increase frequency",
+        "Perform for longer durations",
+        "Make it part of my routine",
+        "Learn a better way to do it",
+        "Make it feel easier",
+        "Perform faster",
+        "Reach a milestone"
+      ],
       "required": true
     },
     "frequency": {
       "type": "enumeration",
       "enum": [
-        "Daily",
-        "Weekly",
+        "Once Daily",
+        "Twice Daily",
+        "One Weekly",
+        "Twice Weekly",
+        "Bi-weekly",
         "Monthly"
       ],
       "required": true
@@ -30,27 +48,29 @@
     "target_timeframe": {
       "type": "enumeration",
       "enum": [
-        "Months-2",
-        "Months-4",
-        "Months-6"
+        "Two months",
+        "Four months",
+        "Six months"
       ],
       "required": true
     },
     "users_permissions_user": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "personal_activity_goals"
     },
     "activity_item": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::activity-item.activity-item"
+      "relation": "manyToOne",
+      "target": "api::activity-item.activity-item",
+      "inversedBy": "personal_activity_goals"
     },
-    "module": {
+    "modules": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToMany",
       "target": "api::module.module",
-      "inversedBy": "personal_activity_goal"
+      "mappedBy": "personal_activity_goals"
     }
   }
 }

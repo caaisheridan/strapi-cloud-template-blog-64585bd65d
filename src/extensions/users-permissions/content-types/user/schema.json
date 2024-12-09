@@ -65,16 +65,11 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "activity_items": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::activity-item.activity-item",
-      "inversedBy": "users"
-    },
     "personal_activity_goals": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::personal-activity-goal.personal-activity-goal"
+      "target": "api::personal-activity-goal.personal-activity-goal",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

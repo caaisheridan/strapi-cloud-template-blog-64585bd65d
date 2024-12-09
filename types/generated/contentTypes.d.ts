@@ -402,13 +402,12 @@ export interface ApiActivityCategoryActivityCategory
   extends Struct.CollectionTypeSchema {
   collectionName: 'activity_categories';
   info: {
-    description: '';
     displayName: 'ActivityCategory';
     pluralName: 'activity-categories';
     singularName: 'activity-category';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     activity_items: Schema.Attribute.Relation<
@@ -424,23 +423,10 @@ export interface ApiActivityCategoryActivityCategory
       'api::activity-category.activity-category'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 40;
-      }>;
     publishedAt: Schema.Attribute.DateTime;
-    sort_order: Schema.Attribute.Integer &
+    title: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.Unique &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<1>;
+      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -457,7 +443,7 @@ export interface ApiActivityItemActivityItem
     singularName: 'activity-item';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     activity_category: Schema.Attribute.Relation<
@@ -473,89 +459,11 @@ export interface ApiActivityItemActivityItem
       'api::activity-item.activity-item'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 100;
-      }>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
     personal_activity_goals: Schema.Attribute.Relation<
       'oneToMany',
       'api::personal-activity-goal.personal-activity-goal'
     >;
-    publishedAt: Schema.Attribute.DateTime;
-    sort_order: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<1>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    users: Schema.Attribute.Relation<
-      'manyToMany',
-      'plugin::users-permissions.user'
-    >;
-  };
-}
-
-export interface ApiExerciseTopicExerciseTopic
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'exercise_topics';
-  info: {
-    displayName: 'ExerciseTopic';
-    pluralName: 'exercise-topics';
-    singularName: 'exercise-topic';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::exercise-topic.exercise-topic'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiExerciseTypeExerciseType
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'exercise_types';
-  info: {
-    displayName: 'ExerciseType';
-    pluralName: 'exercise-types';
-    singularName: 'exercise-type';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::exercise-type.exercise-type'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -619,8 +527,10 @@ export interface ApiModuleTopicModuleTopic extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    module: Schema.Attribute.Relation<'manyToOne', 'api::module.module'>;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    sort_order: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -659,12 +569,8 @@ export interface ApiModuleModule extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 50;
       }>;
-    personal_activity_goal: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::personal-activity-goal.personal-activity-goal'
-    >;
     personal_activity_goals: Schema.Attribute.Relation<
-      'oneToMany',
+      'manyToMany',
       'api::personal-activity-goal.personal-activity-goal'
     >;
     publishedAt: Schema.Attribute.DateTime;
@@ -684,7 +590,7 @@ export interface ApiPersonalActivityGoalPersonalActivityGoal
     singularName: 'personal-activity-goal';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     ability_to_perform_activity: Schema.Attribute.Integer &
@@ -696,14 +602,37 @@ export interface ApiPersonalActivityGoalPersonalActivityGoal
         },
         number
       >;
+    action_to_meet_goal: Schema.Attribute.Enumeration<
+      [
+        'Perform without assistance',
+        'Do more safely',
+        'Increase frequency',
+        'Perform for longer durations',
+        'Make it part of my routine',
+        'Learn a better way to do it',
+        'Make it feel easier',
+        'Perform faster',
+        'Reach a milestone',
+      ]
+    > &
+      Schema.Attribute.Required;
     activity_item: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'api::activity-item.activity-item'
     >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    frequency: Schema.Attribute.Enumeration<['Daily', 'Weekly', 'Monthly']> &
+    frequency: Schema.Attribute.Enumeration<
+      [
+        'Once Daily',
+        'Twice Daily',
+        'One Weekly',
+        'Twice Weekly',
+        'Bi-weekly',
+        'Monthly',
+      ]
+    > &
       Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -711,17 +640,17 @@ export interface ApiPersonalActivityGoalPersonalActivityGoal
       'api::personal-activity-goal.personal-activity-goal'
     > &
       Schema.Attribute.Private;
-    module: Schema.Attribute.Relation<'oneToOne', 'api::module.module'>;
+    modules: Schema.Attribute.Relation<'manyToMany', 'api::module.module'>;
     publishedAt: Schema.Attribute.DateTime;
     target_timeframe: Schema.Attribute.Enumeration<
-      ['Months-2', 'Months-4', 'Months-6']
+      ['Two months', 'Four months', 'Six months']
     > &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     users_permissions_user: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
   };
@@ -1184,10 +1113,6 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
-    activity_items: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::activity-item.activity-item'
-    >;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1246,8 +1171,6 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::activity-category.activity-category': ApiActivityCategoryActivityCategory;
       'api::activity-item.activity-item': ApiActivityItemActivityItem;
-      'api::exercise-topic.exercise-topic': ApiExerciseTopicExerciseTopic;
-      'api::exercise-type.exercise-type': ApiExerciseTypeExerciseType;
       'api::global.global': ApiGlobalGlobal;
       'api::module-topic.module-topic': ApiModuleTopicModuleTopic;
       'api::module.module': ApiModuleModule;

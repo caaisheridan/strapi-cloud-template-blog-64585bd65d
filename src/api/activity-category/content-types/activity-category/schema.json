@@ -4,26 +4,17 @@
   "info": {
     "singularName": "activity-category",
     "pluralName": "activity-categories",
-    "displayName": "ActivityCategory",
-    "description": ""
+    "displayName": "ActivityCategory"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
+    "title": {
       "type": "string",
       "required": true,
-      "unique": true,
-      "maxLength": 40
-    },
-    "sort_order": {
-      "type": "integer",
-      "default": 1,
-      "min": 1,
-      "unique": true,
-      "required": true
+      "unique": true
     },
     "activity_items": {
       "type": "relation",
