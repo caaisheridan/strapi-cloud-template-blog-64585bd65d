@@ -71,6 +71,12 @@
       "relation": "manyToMany",
       "target": "api::module.module",
       "mappedBy": "personal_activity_goals"
+    },
+    "personal_assessment_responses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::personal-assessment-response.personal-assessment-response",
+      "mappedBy": "personal_activity_goal"
     }
   }
 }

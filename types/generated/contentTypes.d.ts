@@ -574,6 +574,10 @@ export interface ApiModuleModule extends Struct.CollectionTypeSchema {
       'api::personal-activity-goal.personal-activity-goal'
     >;
     publishedAt: Schema.Attribute.DateTime;
+    self_assessment: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::self-assessment.self-assessment'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -641,6 +645,10 @@ export interface ApiPersonalActivityGoalPersonalActivityGoal
     > &
       Schema.Attribute.Private;
     modules: Schema.Attribute.Relation<'manyToMany', 'api::module.module'>;
+    personal_assessment_responses: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::personal-assessment-response.personal-assessment-response'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     target_timeframe: Schema.Attribute.Enumeration<
       ['Two months', 'Four months', 'Six months']
@@ -653,6 +661,85 @@ export interface ApiPersonalActivityGoalPersonalActivityGoal
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+  };
+}
+
+export interface ApiPersonalAssessmentResponsePersonalAssessmentResponse
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'personal_assessment_responses';
+  info: {
+    description: '';
+    displayName: 'PersonalAssessmentResponse';
+    pluralName: 'personal-assessment-responses';
+    singularName: 'personal-assessment-response';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::personal-assessment-response.personal-assessment-response'
+    > &
+      Schema.Attribute.Private;
+    personal_activity_goal: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::personal-activity-goal.personal-activity-goal'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    responses: Schema.Attribute.JSON & Schema.Attribute.Required;
+    self_assessment: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::self-assessment.self-assessment'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiSelfAssessmentSelfAssessment
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'self_assessments';
+  info: {
+    description: '';
+    displayName: 'SelfAssessment';
+    pluralName: 'self-assessments';
+    singularName: 'self-assessment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    instructions: Schema.Attribute.Blocks;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::self-assessment.self-assessment'
+    > &
+      Schema.Attribute.Private;
+    module: Schema.Attribute.Relation<'oneToOne', 'api::module.module'>;
+    personal_assessment_responses: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::personal-assessment-response.personal-assessment-response'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1139,6 +1226,10 @@ export interface PluginUsersPermissionsUser
       'oneToMany',
       'api::personal-activity-goal.personal-activity-goal'
     >;
+    personal_assessment_responses: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::personal-assessment-response.personal-assessment-response'
+    >;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1175,6 +1266,8 @@ declare module '@strapi/strapi' {
       'api::module-topic.module-topic': ApiModuleTopicModuleTopic;
       'api::module.module': ApiModuleModule;
       'api::personal-activity-goal.personal-activity-goal': ApiPersonalActivityGoalPersonalActivityGoal;
+      'api::personal-assessment-response.personal-assessment-response': ApiPersonalAssessmentResponsePersonalAssessmentResponse;
+      'api::self-assessment.self-assessment': ApiSelfAssessmentSelfAssessment;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -70,6 +70,12 @@
       "relation": "oneToMany",
       "target": "api::personal-activity-goal.personal-activity-goal",
       "mappedBy": "users_permissions_user"
+    },
+    "personal_assessment_responses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::personal-assessment-response.personal-assessment-response",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

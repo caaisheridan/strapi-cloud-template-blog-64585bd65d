@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "self_assessments",
+  "info": {
+    "singularName": "self-assessment",
+    "pluralName": "self-assessments",
+    "displayName": "SelfAssessment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "instructions": {
+      "type": "blocks"
+    },
+    "module": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::module.module",
+      "inversedBy": "self_assessment"
+    },
+    "personal_assessment_responses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::personal-assessment-response.personal-assessment-response",
+      "mappedBy": "self_assessment"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "personal_assessment_responses",
+  "info": {
+    "singularName": "personal-assessment-response",
+    "pluralName": "personal-assessment-responses",
+    "displayName": "PersonalAssessmentResponse",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "personal_assessment_responses"
+    },
+    "self_assessment": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::self-assessment.self-assessment",
+      "inversedBy": "personal_assessment_responses"
+    },
+    "personal_activity_goal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal-activity-goal.personal-activity-goal",
+      "inversedBy": "personal_assessment_responses"
+    },
+    "responses": {
+      "type": "json",
+      "required": true
+    }
+  }
+}

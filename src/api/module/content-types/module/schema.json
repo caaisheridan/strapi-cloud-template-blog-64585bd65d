@@ -32,6 +32,12 @@
       "relation": "oneToMany",
       "target": "api::module-topic.module-topic",
       "mappedBy": "module"
+    },
+    "self_assessment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::self-assessment.self-assessment",
+      "mappedBy": "module"
     }
   }
 }
