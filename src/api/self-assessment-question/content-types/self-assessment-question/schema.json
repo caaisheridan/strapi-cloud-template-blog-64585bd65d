@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "self_assessment_questions",
+  "info": {
+    "singularName": "self-assessment-question",
+    "pluralName": "self-assessment-questions",
+    "displayName": "SelfAssessmentQuestion",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "questiontext": {
+      "type": "text",
+      "required": true
+    },
+    "question_type": {
+      "type": "enumeration",
+      "enum": [
+        "yesNo",
+        "scale",
+        "multipleChoice"
+      ],
+      "required": true
+    },
+    "order_index": {
+      "type": "integer",
+      "required": true
+    },
+    "options": {
+      "type": "json"
+    },
+    "self_assessment": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::self-assessment.self-assessment",
+      "inversedBy": "self_assessment_questions"
+    }
+  }
+}

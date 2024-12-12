@@ -706,6 +706,46 @@ export interface ApiPersonalAssessmentResponsePersonalAssessmentResponse
   };
 }
 
+export interface ApiSelfAssessmentQuestionSelfAssessmentQuestion
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'self_assessment_questions';
+  info: {
+    description: '';
+    displayName: 'SelfAssessmentQuestion';
+    pluralName: 'self-assessment-questions';
+    singularName: 'self-assessment-question';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::self-assessment-question.self-assessment-question'
+    > &
+      Schema.Attribute.Private;
+    options: Schema.Attribute.JSON;
+    order_index: Schema.Attribute.Integer & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    question_type: Schema.Attribute.Enumeration<
+      ['yesNo', 'scale', 'multipleChoice']
+    > &
+      Schema.Attribute.Required;
+    questiontext: Schema.Attribute.Text & Schema.Attribute.Required;
+    self_assessment: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::self-assessment.self-assessment'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSelfAssessmentSelfAssessment
   extends Struct.CollectionTypeSchema {
   collectionName: 'self_assessments';
@@ -736,6 +776,10 @@ export interface ApiSelfAssessmentSelfAssessment
       'api::personal-assessment-response.personal-assessment-response'
     >;
     publishedAt: Schema.Attribute.DateTime;
+    self_assessment_questions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::self-assessment-question.self-assessment-question'
+    >;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1267,6 +1311,7 @@ declare module '@strapi/strapi' {
       'api::module.module': ApiModuleModule;
       'api::personal-activity-goal.personal-activity-goal': ApiPersonalActivityGoalPersonalActivityGoal;
       'api::personal-assessment-response.personal-assessment-response': ApiPersonalAssessmentResponsePersonalAssessmentResponse;
+      'api::self-assessment-question.self-assessment-question': ApiSelfAssessmentQuestionSelfAssessmentQuestion;
       'api::self-assessment.self-assessment': ApiSelfAssessmentSelfAssessment;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

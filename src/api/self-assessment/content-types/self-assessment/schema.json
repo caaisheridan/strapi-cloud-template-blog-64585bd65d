@@ -33,6 +33,12 @@
       "relation": "oneToMany",
       "target": "api::personal-assessment-response.personal-assessment-response",
       "mappedBy": "self_assessment"
+    },
+    "self_assessment_questions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::self-assessment-question.self-assessment-question",
+      "mappedBy": "self_assessment"
     }
   }
 }
