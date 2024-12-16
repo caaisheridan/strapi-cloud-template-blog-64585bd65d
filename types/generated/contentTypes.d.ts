@@ -398,6 +398,56 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiActionPlanActionPlan extends Struct.CollectionTypeSchema {
+  collectionName: 'action_plans';
+  info: {
+    description: '';
+    displayName: 'ActionPlan';
+    pluralName: 'action-plans';
+    singularName: 'action-plan';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    confidence_level: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+          min: 0;
+        },
+        number
+      >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    how_much: Schema.Attribute.String & Schema.Attribute.Required;
+    how_often: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::action-plan.action-plan'
+    > &
+      Schema.Attribute.Private;
+    personal_activity_goal: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::personal-activity-goal.personal-activity-goal'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    start_date: Schema.Attribute.Date & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    what_to_do: Schema.Attribute.String & Schema.Attribute.Required;
+    when: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ApiActivityCategoryActivityCategory
   extends Struct.CollectionTypeSchema {
   collectionName: 'activity_categories';
@@ -606,6 +656,10 @@ export interface ApiPersonalActivityGoalPersonalActivityGoal
         },
         number
       >;
+    action_plans: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::action-plan.action-plan'
+    >;
     action_to_meet_goal: Schema.Attribute.Enumeration<
       [
         'Perform without assistance',
@@ -1244,6 +1298,10 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
+    action_plans: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::action-plan.action-plan'
+    >;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1304,6 +1362,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
+      'api::action-plan.action-plan': ApiActionPlanActionPlan;
       'api::activity-category.activity-category': ApiActivityCategoryActivityCategory;
       'api::activity-item.activity-item': ApiActivityItemActivityItem;
       'api::global.global': ApiGlobalGlobal;

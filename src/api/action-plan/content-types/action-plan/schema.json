@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "action_plans",
+  "info": {
+    "singularName": "action-plan",
+    "pluralName": "action-plans",
+    "displayName": "ActionPlan",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "start_date": {
+      "type": "date",
+      "required": true
+    },
+    "what_to_do": {
+      "type": "string",
+      "required": true
+    },
+    "how_much": {
+      "type": "string",
+      "required": true
+    },
+    "when": {
+      "type": "string",
+      "required": true
+    },
+    "how_often": {
+      "type": "string",
+      "required": true
+    },
+    "confidence_level": {
+      "type": "integer",
+      "required": true,
+      "min": 0,
+      "max": 10
+    },
+    "personal_activity_goal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal-activity-goal.personal-activity-goal",
+      "inversedBy": "action_plans"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "action_plans"
+    }
+  }
+}
