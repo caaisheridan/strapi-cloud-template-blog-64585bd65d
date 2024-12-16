@@ -43,12 +43,6 @@
       "relation": "manyToOne",
       "target": "api::personal-activity-goal.personal-activity-goal",
       "inversedBy": "action_plans"
-    },
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "action_plans"
     }
   }
 }

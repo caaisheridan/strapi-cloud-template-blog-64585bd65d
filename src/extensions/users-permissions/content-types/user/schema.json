@@ -68,19 +68,22 @@
     "personal_activity_goals": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::personal-activity-goal.personal-activity-goal",
-      "mappedBy": "users_permissions_user"
+      "target": "api::personal-activity-goal.personal-activity-goal"
     },
     "personal_assessment_responses": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::personal-assessment-response.personal-assessment-response",
-      "mappedBy": "users_permissions_user"
+      "target": "api::personal-assessment-response.personal-assessment-response"
     },
     "action_plans": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::action-plan.action-plan",
+      "target": "api::action-plan.action-plan"
+    },
+    "personal_activity_goal": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::personal-activity-goal.personal-activity-goal",
       "mappedBy": "users_permissions_user"
     }
   }

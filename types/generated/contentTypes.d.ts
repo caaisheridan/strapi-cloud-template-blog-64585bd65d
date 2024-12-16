@@ -439,10 +439,6 @@ export interface ApiActionPlanActionPlan extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
     what_to_do: Schema.Attribute.String & Schema.Attribute.Required;
     when: Schema.Attribute.String & Schema.Attribute.Required;
   };
@@ -753,10 +749,6 @@ export interface ApiPersonalAssessmentResponsePersonalAssessmentResponse
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
   };
 }
 
@@ -1324,6 +1316,10 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    personal_activity_goal: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::personal-activity-goal.personal-activity-goal'
+    >;
     personal_activity_goals: Schema.Attribute.Relation<
       'oneToMany',
       'api::personal-activity-goal.personal-activity-goal'
