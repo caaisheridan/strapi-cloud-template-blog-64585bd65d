@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * personal-activity-goal controller
+ * personal-activity-goal controller 1
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
